@@ -10,7 +10,7 @@ dependencies = [
     "alembic==1.14.0",
     "pydantic[email]==2.13.5",
     "pydantic-settings==2.11.0",
-    "azure-servicebus==7.12.3",
+    "azure-servicebus==7.15.0",
     "azure-messaging-webpubsubservice==1.2.0",
     "bizstruct-domain @ git+https://github.com/bizstruct/bizstruct-domain@v0.18.0",
     "pwdlib[argon2]",

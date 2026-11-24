@@ -1,0 +1,40 @@
+# Local replacement for Azure Service Bus (no Azure account needed).
+# Use together with the main file and the `ml` profile:
+#   docker compose -f docker-compose.yml -f docker-compose.emulator.yml --profile ml up -d --build
+# The queue is defined in servicebus-emulator/Config.json and must match SERVICE_BUS_QUEUE_NAME.
+# Using the emulator means accepting Microsoft's license terms (ACCEPT_EULA=Y).
+# SQL Server for Linux has no arm64 image, so Azure SQL Edge is used as the emulator's store.
+
+x-emulator-connection: &emulator-connection
+  SERVICE_BUS_CONNECTION_STRING: "Endpoint=sb://servicebus-emulator;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;"
+
+services:
+  sqledge:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${EMULATOR_SQL_PASSWORD:-Emulator-Passw0rd!}
+    profiles: ["ml"]
+    restart: unless-stopped
+
+  servicebus-emulator:
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SQL_SERVER: sqledge
+      MSSQL_SA_PASSWORD: ${EMULATOR_SQL_PASSWORD:-Emulator-Passw0rd!}
+    volumes:
+      - ./servicebus-emulator/Config.json:/ServiceBus_Emulator/ConfigFiles/Config.json:ro
+    depends_on:
+      - sqledge
+    profiles: ["ml"]
+    restart: on-failure
+
+  api:
+    environment: *emulator-connection
+
+  ml:
+    environment: *emulator-connection
+    depends_on:
+      servicebus-emulator:
+        condition: service_started

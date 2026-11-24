@@ -128,16 +128,16 @@ wheels = [
 
 [[package]]
 name = "azure-servicebus"
-version = "7.12.3"
+version = "7.15.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "azure-core" },
     { name = "isodate" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/71/8a/4eea5dbc1626b4e2cc2fe9abd7b6afeb51eb50f50c0fd9467c3b38560aff/azure_servicebus-7.12.3.tar.gz", hash = "sha256:3f0759731ad2211c68eb4b21e5bca29827f7d6ff0272bdc7eef103c1c13f8322", size = 515299, upload-time = "2024-09-19T22:42:21.096Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e1/34/a377ae04966328abdd4a5366aba51d499bbe3c4e0d2aa17ad29bf8276574/azure_servicebus-7.15.0.tar.gz", hash = "sha256:62c73f3d9efbaf0089a375adc5ef992ffe6d7d0b1218b8462265aa30ad352c3e", size = 637868, upload-time = "2026-10-08T20:15:26.613Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/08/72/eb4f41220244c1d07a7392fae091a94b4a2f0a0f075b521f6f3b2d93b6b6/azure_servicebus-7.12.3-py3-none-any.whl", hash = "sha256:f09b3323277a049e8cdca0ee3b090876835834e941cebb3fab07ef3cf1707984", size = 410018, upload-time = "2024-09-19T22:42:24.677Z" },
+    { url = "https://files.pythonhosted.org/packages/b5/55/204b3848057a4f4178501fed240964cf2ee4ee2ac532d6da77725029f46d/azure_servicebus-7.15.0-py3-none-any.whl", hash = "sha256:7d60ad0956d7d9a7b75a0dad0b9eea0d182564e48911c11af9cd47f65a1d6584", size = 449397, upload-time = "2026-10-08T20:15:28.691Z" },
 ]
 
 [[package]]
@@ -173,7 +173,7 @@ requires-dist = [
     { name = "alembic", specifier = "==1.14.0" },
     { name = "asyncpg", specifier = "==0.30.0" },
     { name = "azure-messaging-webpubsubservice", specifier = "==1.2.0" },
-    { name = "azure-servicebus", specifier = "==7.12.3" },
+    { name = "azure-servicebus", specifier = "==7.15.0" },
     { name = "bizstruct-domain", git = "https://github.com/bizstruct/bizstruct-domain?rev=v0.18.0" },
     { name = "fastapi", specifier = "==0.115.5" },
     { name = "pwdlib", extras = ["argon2"] },
