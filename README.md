@@ -41,7 +41,7 @@ curl -X POST http://127.0.0.1:18000/api/auth/login \
   -d 'username=demo@example.com&password=Demo12345!'
 ```
 
-Then sign in on the web page with the same email and password.
+Then sign in on the web page with the same email and password. The web client also has its own sign-up form, so the curl step is optional.
 
 ## Generation (ml worker, needs Azure and an LLM key)
 
@@ -86,7 +86,7 @@ docker compose --profile ml up -d --build
 ## Configuration
 
 - Root `.env`: `POSTGRES_*`, the shared `INTERNAL_API_KEY`, `SERVICE_BUS_QUEUE_NAME`, host ports. Values passed by compose override the service `.env` files.
-- `bizstruct-be/.env`: JWT and CORS settings, Service Bus and Web PubSub connection strings (both optional: empty means no-op).
+- `bizstruct-be/.env`: CORS settings, Service Bus and Web PubSub connection strings (both optional: empty means no-op). The JWT signing key has an insecure development default; override it for anything beyond a local demo.
 - `bizstruct-ml/.env`: Service Bus, LLM and judge credentials.
 
 ## Commands
