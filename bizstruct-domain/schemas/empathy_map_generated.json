@@ -1,0 +1,141 @@
+{
+  "description": "Generation contract of EmpathyMap: only what the LLM writes. The system\nfields (id, project_id) are added by EmpathyMap, which extends this model.",
+  "properties": {
+    "gains": {
+      "description": "The persona's gains or desires.",
+      "examples": [
+        [
+          "Wants apps that are easy to use"
+        ],
+        [
+          "Wants apps that provide value"
+        ],
+        [
+          "Wants apps that respect privacy"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Gains",
+      "type": "array"
+    },
+    "hears": {
+      "description": "What the persona hears from others.",
+      "examples": [
+        [
+          "Friends discussing new apps"
+        ],
+        [
+          "Podcasts about technology trends"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Hears",
+      "type": "array"
+    },
+    "pains": {
+      "description": "The persona's pains or frustrations.",
+      "examples": [
+        [
+          "Overwhelmed by too many app choices"
+        ],
+        [
+          "Frustrated with apps that have poor user experience"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Pains",
+      "type": "array"
+    },
+    "persona_demographics": {
+      "description": "Demographic information of the persona.",
+      "examples": [
+        "Age: 25-35, Urban, College-educated"
+      ],
+      "title": "Persona Demographics",
+      "type": "string"
+    },
+    "persona_name": {
+      "description": "Name of the persona for whom the empathy map is created.",
+      "examples": [
+        "Tech-Savvy Millennial"
+      ],
+      "title": "Persona Name",
+      "type": "string"
+    },
+    "says_and_does": {
+      "description": "What the persona says and does.",
+      "examples": [
+        [
+          "Shares tech news on social media"
+        ],
+        [
+          "Participates in online tech forums"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Says And Does",
+      "type": "array"
+    },
+    "sees": {
+      "description": "What the persona sees in their environment.",
+      "examples": [
+        [
+          "Advertisements for new apps and gadgets"
+        ],
+        [
+          "Friends using the latest technology"
+        ],
+        [
+          "Tech blogs and news articles"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Sees",
+      "type": "array"
+    },
+    "thinks_and_feels": {
+      "description": "What the persona thinks and feels.",
+      "examples": [
+        [
+          "Excited about new technology"
+        ],
+        [
+          "Concerned about privacy and data security"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Thinks And Feels",
+      "type": "array"
+    }
+  },
+  "required": [
+    "persona_name",
+    "persona_demographics",
+    "sees",
+    "hears",
+    "thinks_and_feels",
+    "says_and_does",
+    "pains",
+    "gains"
+  ],
+  "title": "EmpathyMapGenerated",
+  "type": "object"
+}

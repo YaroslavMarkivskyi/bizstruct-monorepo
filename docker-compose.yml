@@ -1,0 +1,89 @@
+name: bizstruct-stack
+
+# Whole stack: db + api (bizstruct-be) + web (bizstruct-fe) + ml worker (bizstruct-ml, profile `ml`).
+# Root variables are documented in .env.example; each service keeps its own
+# secrets in <repo>/.env, which compose loads through env_file.
+
+services:
+  db:
+    image: postgres:15-alpine # the version be's tests run against
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required, set it in the root .env or the environment}
+      POSTGRES_DB: ${POSTGRES_DB:-bizstruct}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:${DB_PORT:-15432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./bizstruct-be
+    env_file:
+      - ./bizstruct-be/.env # Service Bus / Web PubSub connection strings, JWT secret
+    environment:
+      # `environment` wins over env_file, so these are the single source of truth.
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required, set it in the root .env or the environment}
+      POSTGRES_DB: ${POSTGRES_DB:-bizstruct}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?INTERNAL_API_KEY is required, set it in the root .env or the environment}
+      SERVICE_BUS_QUEUE_NAME: ${SERVICE_BUS_QUEUE_NAME:?SERVICE_BUS_QUEUE_NAME is required (no default on purpose), set it in the root .env or the environment}
+    command: ["sh", "-c", "alembic upgrade head && exec uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+    ports:
+      - "127.0.0.1:${API_PORT:-18000}:8000"
+    healthcheck:
+      # be has no /health route; /openapi.json is served by FastAPI without auth.
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/openapi.json', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./bizstruct-fe
+    environment:
+      API_BASE_URL: http://api:8000
+    ports:
+      - "127.0.0.1:${FE_PORT:-3001}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ml:
+    # Needs a real Azure Service Bus queue and an LLM key, so it only starts with `--profile ml`.
+    profiles: ["ml"]
+    build:
+      context: ./bizstruct-ml
+    env_file:
+      - ./bizstruct-ml/.env # Service Bus connection string, LLM and judge credentials
+    environment:
+      BACKEND_BASE_URL: http://api:8000
+      BACKEND_API_KEY: ${INTERNAL_API_KEY:?INTERNAL_API_KEY is required, set it in the root .env or the environment}
+      SERVICE_BUS_QUEUE_NAME: ${SERVICE_BUS_QUEUE_NAME:?SERVICE_BUS_QUEUE_NAME is required (no default on purpose), set it in the root .env or the environment}
+      JUDGE_PROVIDER: ${JUDGE_PROVIDER:-fake}
+    command: ["python", "-m", "bizstruct_ml"]
+    depends_on:
+      api:
+        condition: service_healthy
+    # A wrong BACKEND_API_KEY makes the worker exit with code 3; an unlimited restart loop
+    # would keep returning messages to the queue, so give up after 5 failures.
+    restart: on-failure:5
+    # No container_name and no published port: `docker compose up -d --scale ml=2` works.
+
+volumes:
+  pgdata:

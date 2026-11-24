@@ -1,0 +1,317 @@
+{
+  "Metadata": {
+    "title": "BizStruct AI",
+    "description": "Створюйте структури бізнес-проєктів за допомогою ШІ."
+  },
+  "AppShell": {
+    "openSidebar": "Відкрити бічну панель"
+  },
+  "Sidebar": {
+    "brand": "BizStruct AI",
+    "close": "Закрити бічну панель",
+    "newProject": "Новий проєкт",
+    "history": "Ваші проєкти",
+    "empty": "Проєктів ще немає",
+    "signOut": "Вийти",
+    "loading": "Завантаження…",
+    "lightTheme": "Світла тема",
+    "darkTheme": "Темна тема",
+    "group_today": "Сьогодні",
+    "group_week": "Останні 7 днів",
+    "group_earlier": "Раніше"
+  },
+  "Auth": {
+    "email": "Email",
+    "password": "Пароль",
+    "fullName": "Ім’я (необов’язково)",
+    "signIn": "Увійти",
+    "signUp": "Створити обліковий запис",
+    "noAccount": "Ще немає облікового запису?",
+    "haveAccount": "Вже є обліковий запис?",
+    "errors": {
+      "invalid": "Невірна пошта або пароль",
+      "exists": "Обліковий запис із цією поштою вже існує",
+      "generic": "Щось пішло не так. Спробуйте ще раз.",
+      "unreachable": "Сервер недоступний",
+      "validation": "Перевірте пошту та пароль (8+ символів)"
+    },
+    "loginLead": "Раді бачити",
+    "loginAccent": "знову",
+    "registerLead": "Створіть свій",
+    "registerAccent": "акаунт"
+  },
+  "Home": {
+    "title": "Структуруйте свою бізнес-ідею",
+    "ideaLabel": "Ваша ідея",
+    "ideaPlaceholder": "Опишіть свою ідею кількома реченнями, наприклад: застосунок, що доставляє набори свіжих продуктів від місцевих ферм зайнятим батькам у місті…",
+    "counter": "{count} / {max}",
+    "autoApprove": "Підтверджувати автоматично",
+    "autoApproveHint": "Рядки з помилками узгодженості продовжують роботу без вашого підтвердження",
+    "submit": "Почати генерацію",
+    "submitting": "Запуск…",
+    "errors": {
+      "tooShort": "Ідея має містити щонайменше {min} символів",
+      "tooLong": "Ідея має містити щонайбільше {max} символів",
+      "generic": "Не вдалося почати генерацію"
+    },
+    "titleLead": "Структуруйте свою",
+    "titleAccent": "бізнес-ідею",
+    "options": "Параметри"
+  },
+  "Status": {
+    "project": {
+      "running": "У процесі",
+      "completed": "Завершено",
+      "failed": "Помилка"
+    },
+    "row": {
+      "pending": "Очікує",
+      "running": "Виконується",
+      "consistency_check": "Перевірка",
+      "awaiting_decision": "Чекає на рішення",
+      "needs_retry": "Потрібен повтор",
+      "done": "Готово",
+      "error": "Помилка"
+    },
+    "state": {
+      "done": "Готово",
+      "running": "Виконується",
+      "attention": "Потрібна увага",
+      "error": "Помилка",
+      "waiting": "Очікує"
+    }
+  },
+  "Stages": {
+    "brief": "Бриф",
+    "empathy_map": "Карта емпатії",
+    "customer_scenario": "Сценарій клієнта",
+    "ideation": "Ідеація",
+    "patterns": "Патерни",
+    "canvas": "Канва бізнес-моделі",
+    "swot_errc_cycle": "Цикл SWOT / ERRC",
+    "storytelling": "Сторітелінг",
+    "future_scenario": "Сценарії майбутнього",
+    "pitch": "Пітч",
+    "team_info": "Команда",
+    "business_case": "Бізнес-кейс",
+    "environment_scan": "Аналіз середовища"
+  },
+  "ErrorCodes": {
+    "generation_failed": "Генерація не вдалася",
+    "check_failed": "Перевірка узгодженості не вдалася",
+    "queue_unavailable": "Черга недоступна",
+    "canceled_by_user": "Скасовано",
+    "stuck_timeout": "Перевищено час очікування"
+  },
+  "Project": {
+    "tabs": {
+      "brief": "Бриф",
+      "segments": "Сегменти",
+      "patterns": "Патерни",
+      "canvas": "Канва",
+      "swot": "SWOT / ERRC",
+      "story": "Сторітелінг",
+      "future": "Майбутнє",
+      "pitch": "Пітч"
+    },
+    "loading": "Завантаження проєкту…",
+    "notFound": "Проєкт не знайдено",
+    "loadError": "Не вдалося завантажити проєкт",
+    "live": "Оновлення кожні 4 секунди",
+    "stopped": "Генерацію завершено",
+    "back": "Усі проєкти",
+    "notReady": "Цю частину ще не згенеровано",
+    "language": "Мова",
+    "progress": "Готово {done} з {total} етапів",
+    "generating": "Ця частина генерується…",
+    "waitingFor": "Очікує попередніх етапів"
+  },
+  "Progress": {
+    "title": "Конвеєр",
+    "instance": "№{n}",
+    "retries": "повторів: {n}",
+    "duration": "{s} с",
+    "violations": "Узгодженість",
+    "score": "оцінка {n}/5",
+    "rule": "Правило",
+    "severity": {
+      "error": "помилка",
+      "warning": "попередження"
+    },
+    "noViolations": "Порушень немає",
+    "dependsOn": "після {stages}",
+    "errorTitle": "Помилка",
+    "noRows": "ще не створено",
+    "optionalBadge": "необов’язковий"
+  },
+  "Actions": {
+    "approve": "Підтвердити",
+    "regenerate": "Згенерувати знову",
+    "retry": "Повторити",
+    "delete": "Видалити проєкт",
+    "cancel": "Скасувати",
+    "working": "Виконується…",
+    "failed": "Дію не виконано",
+    "conflict": "Це вже неможливо для рядка (він змінився). Сторінку оновлено."
+  },
+  "Regenerate": {
+    "title": "Згенерувати рядок знову?",
+    "body": "«{stage}» буде згенеровано знову. Поточний результат буде відкинуто.",
+    "dependents": "Ці рядки залежать від нього й теж будуть скинуті:",
+    "none": "Інші рядки від нього не залежать.",
+    "confirm": "Згенерувати"
+  },
+  "Delete": {
+    "title": "Видалити цей проєкт?",
+    "body": "Проєкт і все згенероване для нього буде видалено. Це незворотно.",
+    "confirm": "Видалити"
+  },
+  "Views": {
+    "brief": {
+      "summary": "Підсумок ідеї",
+      "industry": "Галузь",
+      "segments": "Кандидати сегментів клієнтів",
+      "resources": "Наявні ресурси",
+      "gaps": "Прогалини",
+      "monetization": "Підказка щодо монетизації"
+    },
+    "empathy": {
+      "segment": "Сегмент",
+      "persona": "Персона",
+      "demographics": "Демографія",
+      "sees": "Бачить",
+      "hears": "Чує",
+      "thinksAndFeels": "Думає й відчуває",
+      "saysAndDoes": "Каже й робить",
+      "pains": "Болі",
+      "gains": "Вигоди",
+      "tab": "Карта емпатії",
+      "part": "Частина сегмента"
+    },
+    "scenario": {
+      "title": "Сценарій клієнта",
+      "narrative": "Ситуація",
+      "channel": "Канал",
+      "relationship": "Взаємини",
+      "pricing": "Цінова категорія",
+      "interdependence": "Сигнал взаємозалежності",
+      "yes": "так",
+      "no": "ні",
+      "questions": "Відкриті питання"
+    },
+    "ideation": {
+      "title": "Ідеація",
+      "epicenter": "Епіцентр",
+      "rationale": "Обґрунтування",
+      "whatIf": "А що, якби…"
+    },
+    "patterns": {
+      "branch": "Рішення",
+      "unified_model": "Одна канва для всіх сегментів",
+      "split_model": "Окремі канви",
+      "groups": "Групи канв",
+      "relation": "Зв’язок",
+      "segments": "Сегменти",
+      "tags": "Патерни бізнес-моделі",
+      "noTags": "Патернів не позначено",
+      "pairs": "Оцінки пар сегментів",
+      "synergy": "Синергія",
+      "conflict": "Конфлікт",
+      "noPairs": "Один сегмент не має пар",
+      "rationale": "Обґрунтування"
+    },
+    "canvas": {
+      "sections": {
+        "customer_segments": "Сегменти клієнтів",
+        "value_propositions": "Ціннісні пропозиції",
+        "channels": "Канали",
+        "customer_relationships": "Взаємини з клієнтами",
+        "revenue_streams": "Потоки доходів",
+        "key_resources": "Ключові ресурси",
+        "key_activities": "Ключові дії",
+        "key_partnerships": "Ключові партнери",
+        "cost_structure": "Структура витрат"
+      },
+      "canvasN": "Канва {n}",
+      "covers": "Охоплює: {segments}",
+      "empty": "порожньо"
+    },
+    "swot": {
+      "version": "Версія {n}",
+      "clusters": {
+        "value_proposition": "Ціннісна пропозиція",
+        "cost_revenue": "Витрати та доходи",
+        "infrastructure": "Інфраструктура",
+        "customer_interface": "Взаємодія з клієнтом"
+      },
+      "opportunities": "Можливості",
+      "threats": "Загрози",
+      "moves": "Ходи ERRC до наступної версії",
+      "action": "Дія",
+      "section": "Розділ",
+      "rationale": "Обґрунтування",
+      "part": "SWOT або ERRC",
+      "errcIntro": "Кроки, які перетворили попередню канву на цю",
+      "impact": "Вплив на протилежний бік",
+      "actions": {
+        "eliminate": "Прибрати",
+        "reduce": "Зменшити",
+        "raise": "Підвищити",
+        "create": "Створити"
+      },
+      "strengths": "Сильні сторони",
+      "weaknesses": "Слабкі сторони",
+      "sorted": "Найважливіше зверху",
+      "detail": "Важливість {importance}/10, певність {certainty}/10",
+      "rating": "Оцінка {score}/5",
+      "showAll": "Показати всі ({n})",
+      "showLess": "Згорнути",
+      "levels": {
+        "high": "Висока",
+        "medium": "Середня",
+        "low": "Низька"
+      },
+      "noSwot": "Для цієї версії немає SWOT"
+    },
+    "story": {
+      "goal": "Мета",
+      "format": "Формат",
+      "perspective": "Перспектива",
+      "narrative": "Історія"
+    },
+    "future": {
+      "variants": "Сценарії",
+      "questions": "Питання адаптації",
+      "intro": "{n, plural, one {# можливе майбутнє} few {# можливі майбутні} many {# можливих майбутніх} other {# можливого майбутнього}}"
+    },
+    "pitch": {
+      "hook": "Зачин",
+      "summary": "Підсумок бізнес-моделі",
+      "advantages": "Конкурентні переваги",
+      "risks": "Аналіз ризиків",
+      "team": "Команда",
+      "financial": "Фінансовий аналіз",
+      "pitchN": "Пітч для канви {n}"
+    }
+  },
+  "ProjectMenu": {
+    "options": "Параметри проєкту",
+    "rename": "Перейменувати",
+    "details": "Деталі",
+    "delete": "Видалити",
+    "renameTitle": "Перейменувати проєкт",
+    "renameLabel": "Назва",
+    "save": "Зберегти",
+    "detailsTitle": "Деталі проєкту",
+    "idea": "Ідея",
+    "language": "Мова",
+    "created": "Створено",
+    "status": "Статус",
+    "optional": "Необов’язкові етапи",
+    "autoApprove": "Підтверджує автоматично",
+    "yes": "так",
+    "no": "ні",
+    "none": "немає",
+    "close": "Закрити"
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "$defs": {
+    "CanvasSection": {
+      "description": "An enumeration of the different sections of a business model canvas.",
+      "enum": [
+        "value_propositions",
+        "customer_segments",
+        "channels",
+        "customer_relationships",
+        "revenue_streams",
+        "key_resources",
+        "key_activities",
+        "key_partnerships",
+        "cost_structure"
+      ],
+      "title": "CanvasSection",
+      "type": "string"
+    },
+    "ERRCActionType": {
+      "description": "An enumeration of the different types of ERRC actions.",
+      "enum": [
+        "eliminate",
+        "reduce",
+        "raise",
+        "create"
+      ],
+      "title": "ERRCActionType",
+      "type": "string"
+    },
+    "ErrcMove": {
+      "description": "Represents a move in the error correction system.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ERRCActionType",
+          "description": "The action to be taken for error correction.",
+          "examples": [
+            "eliminate",
+            "reduce",
+            "raise",
+            "create"
+          ]
+        },
+        "new_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The text of the card after the action is applied. Required for reduce, raise and create (for reduce and raise it replaces the target card's text); must be omitted for eliminate.",
+          "examples": [
+            "Self-serve customer onboarding in under 10 minutes",
+            "Production costs reduced by 15% through batch purchasing"
+          ],
+          "title": "New Text"
+        },
+        "opposite_side_impact": {
+          "description": "A description of how the action will impact the opposite side of the canvas.",
+          "examples": [
+            "Eliminating this feature may reduce customer satisfaction.",
+            "Raising the price may increase revenue but could decrease demand."
+          ],
+          "title": "Opposite Side Impact",
+          "type": "string"
+        },
+        "rationale": {
+          "description": "The rationale behind the action, explaining why it is necessary.",
+          "examples": [
+            "This feature is not aligned with our core value proposition.",
+            "Reducing production costs will improve our profit margins."
+          ],
+          "title": "Rationale",
+          "type": "string"
+        },
+        "target_card_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The exact current text of the existing card the action targets. Required for eliminate, reduce and raise; must be omitted for create.",
+          "examples": [
+            "Improve customer onboarding process",
+            "Reduce production costs"
+          ],
+          "title": "Target Card Text"
+        },
+        "target_section": {
+          "$ref": "#/$defs/CanvasSection",
+          "description": "The section of the canvas that the action targets.",
+          "examples": [
+            "customer_segments",
+            "value_propositions",
+            "channels"
+          ]
+        }
+      },
+      "required": [
+        "action",
+        "target_section",
+        "opposite_side_impact",
+        "rationale"
+      ],
+      "title": "ErrcMove",
+      "type": "object"
+    }
+  },
+  "description": "Generation contract of Errc: only what the LLM writes. The system\nfields (canvas_id, from_version, id, result_canvas_id, swot_id, to_version) are added by Errc, which extends this model.",
+  "properties": {
+    "moves": {
+      "description": "The moves of the ERRC analysis: between 1 and 6.",
+      "examples": [
+        [
+          {
+            "action": "eliminate",
+            "new_text": null,
+            "opposite_side_impact": "Eliminating this segment may reduce revenue.",
+            "rationale": "This segment is no longer profitable.",
+            "target_card_text": "Old customer segment",
+            "target_section": "customer_segments"
+          },
+          {
+            "action": "reduce",
+            "new_text": "Field sales team limited to key accounts",
+            "opposite_side_impact": "Fewer visits may slow acquisition of small customers.",
+            "rationale": "Field sales cost is out of proportion to small-account revenue.",
+            "target_card_text": "Field sales team",
+            "target_section": "channels"
+          },
+          {
+            "action": "raise",
+            "new_text": "Same-day delivery",
+            "opposite_side_impact": "Same-day delivery raises logistics cost.",
+            "rationale": "Delivery speed is the main reason customers switch to us.",
+            "target_card_text": "Fast delivery",
+            "target_section": "value_propositions"
+          },
+          {
+            "action": "create",
+            "new_text": "New value proposition",
+            "opposite_side_impact": "Creating this proposition may attract new customers.",
+            "rationale": "This proposition addresses a new market need.",
+            "target_card_text": null,
+            "target_section": "value_propositions"
+          }
+        ]
+      ],
+      "items": {
+        "$ref": "#/$defs/ErrcMove"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "title": "Moves",
+      "type": "array"
+    }
+  },
+  "required": [
+    "moves"
+  ],
+  "title": "ErrcGenerated",
+  "type": "object"
+}

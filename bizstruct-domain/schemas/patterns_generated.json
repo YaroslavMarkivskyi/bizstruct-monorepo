@@ -1,0 +1,274 @@
+{
+  "$defs": {
+    "CanvasGroupGenerated": {
+      "description": "A group of segments as the generator writes it: by alias, without an id\n(group ids are assigned by the system).",
+      "properties": {
+        "relation_type": {
+          "$ref": "#/$defs/SegmentRelationType",
+          "description": "The type of relationship between the segments in this group.",
+          "examples": [
+            "multi_sided",
+            "segmented",
+            "diversified"
+          ]
+        },
+        "segment_aliases": {
+          "description": "Aliases of the segments that belong to this group, as defined in the prompt.",
+          "examples": [
+            [
+              "S1",
+              "S2"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Segment Aliases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "segment_aliases",
+        "relation_type"
+      ],
+      "title": "CanvasGroupGenerated",
+      "type": "object"
+    },
+    "FreePatternSubtype": {
+      "description": "An enumeration of the different subtypes of the \"free\" business model pattern.",
+      "enum": [
+        "freemium",
+        "ad_supported",
+        "bait_and_hook"
+      ],
+      "title": "FreePatternSubtype",
+      "type": "string"
+    },
+    "OpenBusinessModelPatternSubtype": {
+      "description": "An enumeration of the different subtypes of the \"open business model\" pattern.",
+      "enum": [
+        "outside_in",
+        "inside_out"
+      ],
+      "title": "OpenBusinessModelPatternSubtype",
+      "type": "string"
+    },
+    "PairwiseSegmentScoreGenerated": {
+      "description": "A pairwise score as the generator writes it: the pair is given by aliases.\nSame bounds as PairwiseSegmentScore (synergy 0..5, conflict -7..0).",
+      "properties": {
+        "conflict": {
+          "description": "A score representing the conflict between the two segments, on a scale from -7 to 0.",
+          "examples": [
+            -2,
+            -4,
+            -6
+          ],
+          "maximum": 0,
+          "minimum": -7,
+          "title": "Conflict",
+          "type": "integer"
+        },
+        "segment_pair": {
+          "$ref": "#/$defs/SegmentPairGenerated",
+          "description": "The pair of segments being scored, by alias."
+        },
+        "synergy": {
+          "description": "A score representing the synergy between the two segments, on a scale from 0 to 5.",
+          "examples": [
+            3,
+            4,
+            5
+          ],
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Synergy",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "synergy",
+        "conflict",
+        "segment_pair"
+      ],
+      "title": "PairwiseSegmentScoreGenerated",
+      "type": "object"
+    },
+    "Pattern": {
+      "description": "An enumeration of the different types of business model patterns.",
+      "enum": [
+        "unbundling",
+        "long_tail",
+        "multi_sided_platform",
+        "free",
+        "open_business_model"
+      ],
+      "title": "Pattern",
+      "type": "string"
+    },
+    "PatternTag": {
+      "description": "Represents a tag for a business model pattern in a business context.",
+      "properties": {
+        "pattern": {
+          "$ref": "#/$defs/Pattern",
+          "description": "The business model pattern to which this tag applies.",
+          "examples": [
+            "unbundling",
+            "long_tail",
+            "multi_sided_platform",
+            "free",
+            "open_business_model"
+          ]
+        },
+        "rationale": {
+          "description": "A rationale explaining the reasoning behind the pattern tag.",
+          "examples": [
+            "The business model is primarily driven by customer needs and feedback."
+          ],
+          "title": "Rationale",
+          "type": "string"
+        },
+        "subtype": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FreePatternSubtype"
+            },
+            {
+              "$ref": "#/$defs/OpenBusinessModelPatternSubtype"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The subtype of the business model pattern, if applicable.",
+          "examples": [
+            "freemium",
+            "outside_in",
+            "inside_out"
+          ],
+          "title": "Subtype"
+        }
+      },
+      "required": [
+        "pattern",
+        "rationale"
+      ],
+      "title": "PatternTag",
+      "type": "object"
+    },
+    "SegmentPairGenerated": {
+      "description": "A pair of segments as the generator writes it: by alias, never by real id.",
+      "properties": {
+        "segment_alias_a": {
+          "description": "Alias of the first segment, exactly as defined in the prompt (for example \"S1\").",
+          "examples": [
+            "S1"
+          ],
+          "minLength": 1,
+          "title": "Segment Alias A",
+          "type": "string"
+        },
+        "segment_alias_b": {
+          "description": "Alias of the second segment, exactly as defined in the prompt (for example \"S2\").",
+          "examples": [
+            "S2"
+          ],
+          "minLength": 1,
+          "title": "Segment Alias B",
+          "type": "string"
+        }
+      },
+      "required": [
+        "segment_alias_a",
+        "segment_alias_b"
+      ],
+      "title": "SegmentPairGenerated",
+      "type": "object"
+    },
+    "SegmentRelationType": {
+      "description": "An enumeration of the different types of segment relations.\n\nThe book's Customer Segments building block (pp. 20-21) describes\nfive segment types: Mass market, Niche market, Segmented,\nDiversified, and Multi-sided platforms. Only the last three\ndescribe a relationship BETWEEN two or more distinct segments;\nMass market and Niche market describe a single-segment model and\ntherefore have no \"relation\" to classify. Since this enum exists\nspecifically to tag how multiple segments relate to each other\nwithin one canvas group, only those three carry over here.",
+      "enum": [
+        "multi_sided",
+        "segmented",
+        "diversified"
+      ],
+      "title": "SegmentRelationType",
+      "type": "string"
+    }
+  },
+  "description": "Generation contract of Patterns: only what the LLM writes. Segments are\nreferenced by ALIASES defined in the prompt, never by real ids. Group ids\nare assigned by the system and `branch_decision` is derived from the number\nof groups (one group: unified_model, otherwise split_model); use\n`patterns_from_generated` to build the persisted Patterns.",
+  "properties": {
+    "groups": {
+      "description": "The canvas groups of the segments, by alias.",
+      "examples": [
+        [
+          {
+            "relation_type": "multi_sided",
+            "segment_aliases": [
+              "S1",
+              "S2"
+            ]
+          },
+          {
+            "relation_type": "segmented",
+            "segment_aliases": [
+              "S3"
+            ]
+          }
+        ]
+      ],
+      "items": {
+        "$ref": "#/$defs/CanvasGroupGenerated"
+      },
+      "minItems": 1,
+      "title": "Groups",
+      "type": "array"
+    },
+    "pairwise_scores": {
+      "description": "A list of pairwise segment scores, one per pair of segments, by alias.",
+      "examples": [
+        [
+          {
+            "conflict": -2,
+            "segment_pair": {
+              "segment_alias_a": "S1",
+              "segment_alias_b": "S2"
+            },
+            "synergy": 4
+          }
+        ]
+      ],
+      "items": {
+        "$ref": "#/$defs/PairwiseSegmentScoreGenerated"
+      },
+      "title": "Pairwise Scores",
+      "type": "array"
+    },
+    "pattern_tags": {
+      "description": "A list of pattern tags for the business model patterns, each pattern at most once.",
+      "examples": [
+        [
+          {
+            "pattern": "multi_sided_platform",
+            "rationale": "Two interdependent customer groups need each other.",
+            "subtype": null
+          }
+        ]
+      ],
+      "items": {
+        "$ref": "#/$defs/PatternTag"
+      },
+      "maxItems": 5,
+      "title": "Pattern Tags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "pairwise_scores",
+    "groups",
+    "pattern_tags"
+  ],
+  "title": "PatternsGenerated",
+  "type": "object"
+}

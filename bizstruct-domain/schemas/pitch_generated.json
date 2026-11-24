@@ -1,0 +1,91 @@
+{
+  "description": "Generation contract of Pitch: only what the LLM writes. The system\nfields (business_case_id, canvas_id, id, project_id, storytelling_id, swot_id, team_info_id) are added by Pitch, which extends this model.",
+  "properties": {
+    "business_model_summary": {
+      "description": "A concise summary of the business model being pitched.",
+      "examples": [
+        "Our platform leverages AI to provide personalized recommendations to users."
+      ],
+      "title": "Business Model Summary",
+      "type": "string"
+    },
+    "competitive_advantages": {
+      "description": "A list of competitive advantages that differentiate the business from its competitors.",
+      "examples": [
+        [
+          "Proprietary AI algorithms",
+          "Strong brand recognition",
+          "Exclusive partnerships"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Competitive Advantages",
+      "type": "array"
+    },
+    "financial_analysis_section": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "A section providing a financial analysis of the business, if applicable.",
+      "examples": [
+        "Our financial projections indicate a steady growth trajectory over the next five years."
+      ],
+      "title": "Financial Analysis Section"
+    },
+    "hook": {
+      "description": "A brief and compelling hook for the pitch.",
+      "examples": [
+        "Revolutionizing the way we connect with our customers."
+      ],
+      "title": "Hook",
+      "type": "string"
+    },
+    "risk_analysis": {
+      "description": "A list of potential risks associated with the business and strategies to mitigate them.",
+      "examples": [
+        [
+          "Market volatility: Diversify product offerings to reduce dependency on a single market segment."
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Risk Analysis",
+      "type": "array"
+    },
+    "team_section": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "A section highlighting the team behind the business, if applicable.",
+      "examples": [
+        "Our team consists of experienced professionals with a proven track record in the industry."
+      ],
+      "title": "Team Section"
+    }
+  },
+  "required": [
+    "hook",
+    "business_model_summary",
+    "competitive_advantages",
+    "risk_analysis"
+  ],
+  "title": "PitchGenerated",
+  "type": "object"
+}
